@@ -7,7 +7,8 @@
     <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Name</th>
+      <th scope="col"> stt</th>
+      <th scope="col" >Name</th>
       <th scope="col">parent_id</th>
       <th scope="col">status</th>
       <th scope="col">Detail</th>
@@ -18,6 +19,7 @@
   <tbody>
             @foreach($categories as $category)
                 <tr>
+                     <td> {{ $category->id}} </td>
                     <td>{{ $category->name }}</td>
                     <td>{{ $category->parent_id }}</td>
                     <td>
@@ -27,7 +29,7 @@
                             danh mục đang tạm ngừng hoạt động
                         @endif
                     </td>
-                    <td><button class="btn btn-warning" >  <a href="{{ route('categories.show', $category->id) }}" > detail</a></button></td>
+                    <td><button class="btn btn-warning" > <a href="{{ route('categories.show', $category->id) }}" > detail</a></button></td>
                     <td><form
                       action="{{ route('categories.destroy', $category->id) }}"
                       method="POST"

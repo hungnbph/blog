@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-
+use DB;
 class CategoryController extends Controller
 {
     /**
@@ -46,9 +46,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        $categories = Category::find($category);
+        return view('categories.show', ['categories'=> $categories]);
     }
 
     /**
