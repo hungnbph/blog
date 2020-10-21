@@ -65,8 +65,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $category = Category::find($category);
-        dd($category);
+        $categories = Category::find($category);
+
         return view('categories.show', ['category'=> $category]);
     }
 

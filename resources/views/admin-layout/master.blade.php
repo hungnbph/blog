@@ -238,17 +238,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('posts') }}" class="nav-link active">
+                <a href="{{ url('products') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
-                  danh sach Post
+                  danh sach products
                   </p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>thêm Post</p>
+                  <p>thêm product</p>
                 </a>
               </li>
               

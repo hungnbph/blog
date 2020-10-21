@@ -16,20 +16,18 @@
     </tr>
   </thead>
   <tbody>
-  @foreach($category as $cate)
                 <tr>
-                     <td>{{ $cate->id }}</td>
-                    <td>{{ $cate->name }}</td>
-                    <td>{{ $cate->parent_id }}</td>
+                     <td>{{ $category->id }}</td>
+                    <td>{{ $category->name }}</td>
+                    <td>{{ $category->parent_id }}</td>
                     <td>
-                        @if ($cate->status == 1)
+                        @if ($category->status == 1)
                             đang trong sử dụng
                         @else
                             danh mục đang tạm ngừng hoạt động
                         @endif
                     </td>
                 </tr>
-                @endforeach
         </tbody>
 
 </table>
