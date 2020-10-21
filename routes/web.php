@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('/', CategoryController::class);
 Route::resource('categories', CategoryController::class);
+Route::get('login', [LoginController::class, 'index'])->name('get-login');
+Route::post('post-login', [LoginController::class, 'postLogin'])->name('post-login');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');

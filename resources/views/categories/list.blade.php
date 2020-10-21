@@ -36,7 +36,7 @@
                     >
                       @csrf
                       <input type='hidden' name='_method' value='DELETE'></input>
-                      <button class="btn btn-danger"  type='submit'>Delete</button>
+                      <button class="btn btn-danger" onclick=" return confirm('bạn có chắc chắn không?')" type='submit'>Delete</button>
                     </form>
                     <a href="{{ route('categories.edit', $category->id) }}">
                       <button class="btn btn-info" >Edit</button>

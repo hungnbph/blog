@@ -7,6 +7,11 @@ use App\Models\Category;
 use DB;
 class CategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +31,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $category = Category::all();
+        return view('categories.create', ['category'=>$category]);
     }
 
     /**
@@ -37,7 +43,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data= request()->validate([
+            'name'=> 'required',
+            'parent_id'=> 'required',
+            'status'=> 'required',
+        ]);
+        $category = new Category;
+        $category->name = $data['name'];
+        $category->parent_id = $data['parent_id'];
+        $category->status = $data['status'];
+        $category->save();
+
+        return redirect()->route('categories.index')->with('success', 'thanh cong');
     }
 
     /**
@@ -48,8 +65,9 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $categories = Category::find($category);
-        return view('categories.show', ['categories'=> $categories]);
+        $category = Category::find($category);
+        dd($category);
+        return view('categories.show', ['category'=> $category]);
     }
 
     /**
@@ -58,9 +76,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        $categories = Category::all();
+        return view('categories.edit',[ 'category'=> $category], ['categories'=>$categories]);
     }
 
     /**
@@ -70,9 +89,16 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->name = $request->name;
+        $category->parent_id = $request->parent_id;
+        $category->status = $request->status;
+
+        $category->save();
+        return redirect()->route('categories.index');
+        
+
     }
 
     /**
@@ -81,8 +107,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        if($category){
+            $category->delete();
+            return redirect()->route('categories.index');
+        }
     }
 }
