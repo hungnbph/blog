@@ -3,14 +3,7 @@
 @section('title', 'Edit student')
 
 @section('ten', "Edit student")
-@section('content')
-@if ($errors->any())
-        <ul>
-        <!-- Neu co loi thi se foreach de hien thi loi ra -->
-            @foreach($errors->all() as $error)
-            <li>{{$error}}</li>
-            @endforeach
-            @endif  
+@section('content') 
 <form
 method="POST"  action="{{route('categories.store') }}">
          <!-- Them token gui len -->
@@ -19,6 +12,9 @@ method="POST"  action="{{route('categories.store') }}">
     <div class="form-group col-md-6">
       <label for="name">name</label>
       <input type="text" class="form-control" id="name" name="name"   >
+      @if($errors->has('name'))
+        {{$errors->first('name')}}
+      @endif
     </div>
     </div>
 
@@ -30,7 +26,7 @@ method="POST"  action="{{route('categories.store') }}">
       <select name="parent_id" id="parent_id" class="form-control">
          <option value="0"> danh mục cha</option>
          @foreach($category as $cate)
-         <option value="{{$cate->parent_id}}">{{$cate->name}}</option>
+         <option value="{{$cate->id}}">{{$cate->name}}</option>
          @endforeach
 
       </select>

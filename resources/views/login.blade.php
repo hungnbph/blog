@@ -39,7 +39,9 @@
 					<span class="icon2"><i class="fa fa-unlock" aria-hidden="true"></i></span>
 				</div>
 				<div class="sub-w3l">
-					<h6><a href="#">Forgot Password?</a></h6>
+				<h6 style="float:left; margin-left:8%;" ><a href="{{url('register')}}">đăng ký</a></h6>
+
+				<h6><a href="#">Forgot Password?</a></h6>
 					<div class="right-w3l">
 						<input type="submit" value="Login">
 					</div>

@@ -2,7 +2,7 @@
 
 @section('title', 'Edit student')
 
-@section('ten', "Edit student  $student->name")
+@section('ten', "Edit student ")
 @section('content')
 <form
         action="{{route('products.store')}}"
@@ -15,6 +15,9 @@
     <div class="form-group col-md-6">
       <label for="name">name</label>
       <input type="text" class="form-control" id="name" name="name"   >
+      @if($errors->has('name'))
+        {{$errors->first('name')}}
+      @endif
     </div>
   </div>
   <div class="form-row">
@@ -24,58 +27,82 @@
       <input type="text" class="form-control" name="phone" id="phone"  > -->
       <select name="category_id" id="parent_id" class="form-control">
         <option value="0"> chọn thư mục</option>
-          @foreach($categories as $cate)
-         <option value="{{$cate->parent_id}}">{{$cate->name}}</option>
-         @endforeach
+         <?php showCategories($category)   ?>
        
       </select>
       </div>
     </div>
-  <div class="form-group">
-    <label for="age">age</label>
-    <input type="text" class="form-control" id="age" name="age"  >
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="name">images</label>
+      <input type="file" class="form-control" id="image_url" name="image_url" >
+      @if($errors->has('image_url'))
+        {{$errors->first('image_url')}}
+      @endif
+    </div>
   </div>
-  <div class="form-group">
-    <label for="address">Address</label>
-    <input type="text" class="form-control" name="adress" id="adress" >
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="name">description</label>
+      <input type="text" class="form-control" id="description" name="description">
+      @if($errors->has('description'))
+        {{$errors->first('description')}}
+      @endif
+    </div>
   </div>
 
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="name">price</label>
+      <input type="text" class="form-control" id="price" name="price"   >
+      @if($errors->has('price'))
+        {{$errors->first('price')}}
+      @endif
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="sale_percent">sale_percent</label>
+      <input type="text" class="form-control" id="sale_percent" name="sale_percent">
+      @if($errors->has('sale_percent'))
+        {{$errors->first('sale_percent')}}
+      @endif
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+    <label for="is_active">active</label>
+    <select name="is_active" id="is_active" class="form-control">
+        <option value="0">ẩn</option>
+        <option value="1"> hiện</option>
+      </select>
+    </div>
+  </div>
 
-  
-  <div class="form-group">
-  <label for="gender">gender</label>
-  <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="gender" value="0" {{$student->gender === 0 ? "checked" : ""}}>
-  <label class="form-check-label" for="nam">nam</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="gender" value="1" {{$student->gender === 1 ? "checked" : ""}}>
-  <label class="form-check-label" for="nu">nữ</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="gender" value="2" {{$student->gender === 2 ? "checked" : ""}}>
-  <label class="form-check-label" for="xd">không xác định</label>
-</div>
-</div>
-
-
-<div class="form-group">
-  <label for="status">status</label>
-  <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="is_active" value="0" {{$student->gender === 0 ? "checked" : ""}}>
-  <label class="form-check-label" for="inlineRadio1">Deactive</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="is_active" value="1" {{$student->gender === 1 ? "checked" : ""}}>
-  <label class="form-check-label" for="inlineRadio2">Active</label>
-</div>
-</div> 
-
-
-
-
-  <button type="submit" class="btn btn-primary">UPDATE</button>
+  <button type="submit" class="btn btn-primary">CREATE</button>
 </form>
 
     
 @endsection
+
+
+<?php 
+function showCategories($categories, $parent_id = 0, $char = '')
+{
+    foreach ($categories as $key => $item)
+    {
+        // Nếu là chuyên mục con thì hiển thị
+        if ($item->parent_id == $parent_id)
+        {
+          echo'<option value="'.$item->id.'">'.$char.$item->name.'</option>';
+
+            unset($categories[$key]);
+             
+            // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+            showCategories($categories, $item->id, $char.' -- ');
+        }
+    }
+}
+
+?>

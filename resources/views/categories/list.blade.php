@@ -24,9 +24,9 @@
                     <td>{{ $category->parent_id }}</td>
                     <td>
                         @if ($category->status == 1)
-                            đang trong sử dụng
+                            hiện
                         @else
-                            danh mục đang tạm ngừng hoạt động
+                            ẩn
                         @endif
                     </td>
                     <td><button class="btn btn-warning" > <a href="{{ route('categories.show', $category->id) }}" > detail</a></button></td>
@@ -50,3 +50,5 @@
 
     
     @endsection
+
+    

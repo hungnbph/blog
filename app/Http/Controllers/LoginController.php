@@ -42,5 +42,32 @@ class LoginController extends Controller
         Auth::logout();
 
         return redirect()->route('get-login');
+    } 
+
+    public function register(){
+        return view('register');
+    }
+
+    public function registerStore(Request $request)
+    {
+        $this->validate($request,[
+            'name'=> 'required',
+            'email'=> 'required|email|unique:user',
+            'password'=> 'required',
+            'confirm_password'=> 'required|same:password',
+            'address'=> 'required',
+
+        ],[
+            'name.required'=> '*không được để trống name product *',
+            'password.required'=> '*không được để trống password *',
+            'address.required'=> '*không được để trống địa chỉ *',
+            'confirm_password.required'=> '*không được để trống confirm_password *',
+            'email.required'=> '*không được để trống  giá email *',
+            'email.email'=> '* email không đúng định dạng *',
+            
+        
+            'sale_percent.lt'=> ' giá phải nhỏ hơn giá gốc'
+
+        ]);
     }
 }
