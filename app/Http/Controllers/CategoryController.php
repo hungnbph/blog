@@ -43,16 +43,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $data= request()->validate([
-            'name'=> 'required',
-            'parent_id'=> 'required',
-            'status'=> 'required',
+        $this->validate($request,[
+            'name' => 'required|unique:categories,name'
+
+        ],[
+            'name.required' => '* không được để trông danh mục*',
+            'name.unique' => '*tên đã có trong cơ sở dữ liệu*',
+ 
+
         ]);
-        $category = new Category;
-        $category->name = $data['name'];
-        $category->parent_id = $data['parent_id'];
-        $category->status = $data['status'];
-        $category->save();
+        Category::create($request->all());
+       
 
         return redirect()->route('categories.index')->with('success', 'thanh cong');
     }

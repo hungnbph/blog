@@ -23,7 +23,7 @@
                 <tr>
                     <td>{{ $product->name }}</td>
                     <td >{{ $product->category_id }}</td>
-                    <td>{{ $product->image_url }} </td>
+                    <td> <img src="{{url('/'.$product->image_url)}}" alt="" width="100" height="80"> </td>
                     <td>{{ $product->description }} </td>
                     <td>{{ $product->price}} </td>
                     <td>{{ $product->sale_percent}} </td>
@@ -39,7 +39,7 @@
                     >
                       @csrf
                       <input type='hidden' name='_method' value='DELETE'></input>
-                      <button class="btn btn-danger"  type='submit'>Delete</button>
+                      <button class="btn btn-danger"   type='submit' onclick="return confirm('bạn có chắc chắn không?')" >Delete</button>
                     </form>
                     <a href="{{ route('products.edit', $product->id) }}">
                       <button class="btn btn-success" >Edit</button>
@@ -47,9 +47,11 @@
                     
                 </tr>
             @endforeach
-            <tr><td colspan="6">{{$products->links()}}</td></tr>
         </tbody>
 
 </table>
+<div class="page d-flex justify-content-center">
+                    {{$products->links()}}
+                </div>
     
     @endsection

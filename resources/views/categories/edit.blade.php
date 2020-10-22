@@ -23,10 +23,10 @@ method="POST"
       <!-- <label for="phone">parent_id</label>
       <input type="text" class="form-control" name="phone" id="phone"  > -->
       <select name="parent_id" id="parent_id" class="form-control">
-        <option value="0"> chọn thư mục</option>
           @foreach($categories as $cate)
-         <option value="{{$cate->parent_id}}">{{$cate->name}}</option>
+         <option value="{{$cate->id}}">{{$cate->name}}</option>
          @endforeach
+         <option value="0"> chọn thư mục cha</option>
        
       </select>
       </div>
@@ -38,10 +38,10 @@ method="POST"
       <input type="text" class="form-control" name="phone" id="phone"  > -->
       <select name="status" id="status" class="form-control">
           @if($category->status==1)
-          <option selected value="1">đang hoạt động</option>
+          <option selected value="1">hiện</option>
           <option value="0">ẩn</option>
           @else
-          <option value="1">đang hoạt động</option>
+          <option value="1">hiện</option>
           <option selected value="0">ẩn</option>
           @endif
          

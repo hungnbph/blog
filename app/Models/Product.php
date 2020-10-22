@@ -31,7 +31,7 @@ class Product extends Model
     }
 
     // function categories the hien nhieu post, moi post co nhieu categories
-    public function categories() {
-        return $this->belongsToMany(Category::class, 'category_product', 'product_id', 'category_id');
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id','id');
     }
 }
