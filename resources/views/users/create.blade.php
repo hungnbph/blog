@@ -2,7 +2,7 @@
 
 @section('title', 'Edit student')
 
-@section('ten', "Edit student ")
+@section('ten', "create student ")
 @section('content')
 
 <form method="POST" action="{{route('users.store')}}" >
@@ -60,10 +60,36 @@
                     <div class="statbox widget box box-shadow">
                         <div class="form-group">
                             <label class="text-primary">Address</label>
-                            <input type="text" name="address" placeholder="Your Address..." class="form-control">
-                            @if($errors->has('address'))
-                            {{$errors->first('address')}}
+                            <input type="text" name="adress" placeholder="Your Address..." class="form-control">
+                            @if($errors->has('adress'))
+                            {{$errors->first('adress')}}
                             @endif
+                        </div>
+                        <div class="form-row">
+                         <div class="form-group col-md-6">
+                         <label for="is_active">active</label>
+                         <select name="is_active" id="is_active" class="form-control">
+                             <option disabled value="0">khóa</option>
+                             <option selected value="1"> hiện</option>
+                        </select>
+                        @if($errors->has('is_active'))
+                            {{$errors->first('is_active')}}
+                            @endif
+                         </div>
+                        </div>
+                       
+                        <div class="form-row">
+                         <div class="form-group col-md-6">
+                         <label for="role">role</label>
+                         <select name="role" id="role" class="form-control">
+                             <option selected value="0">khách</option>
+                             <option  value="1"> quản lý</option>
+                             <option disabled value="2"> admin</option>
+                        </select>
+                        @if($errors->has('role'))
+                         {{$errors->first('role')}}
+                         @endif
+                         </div>
                         </div>
                         
                         </div>

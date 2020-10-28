@@ -84,9 +84,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $comments = Comment::with(['product:id,name', 'user:id,name'])->paginate(5);
-        dd($comments);
-        return view('products.show',['comments'=>$comments]);
+        $comments = Comment::with(['product:id,name', 'user:id,name'])->find($product);
+        return view('products.show',['product'=> $product],['comments'=>$comments]);
     }
 
     /**

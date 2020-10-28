@@ -51,28 +51,28 @@ class UserController extends Controller
             'email'=> 'required|email|unique:users',
             'password'=> 'required',
             'confirm_password'=> 'required|same:password',
-            'address'=> 'required',
+            'adress'=> 'required',
+            'is_active'=> 'required',
+            'role' => 'required',
 
         ],[
             'name.required'=> '*không được để trống name product *',
             'password.required'=> '*không được để trống password *',
-            'address.required'=> '*không được để trống địa chỉ *',
+            'adress.required'=> '*không được để trống địa chỉ *',
             'confirm_password.required'=> '*không được để trống confirm_password *',
             'email.required'=> '*không được để trống  giá email *',
             'email.email'=> '* email không đúng định dạng *',
-              'confirm_password.same'=> '*mật khẩu không giống nhau *',
+            'confirm_password.same'=> '*mật khẩu không giống nhau *',
+            'is_active.repuired' => '*không được thực hiện*',
+            'role.repuired' => '*không được thực hiện*',
+
         ]);
         $users = new User;
         $users->fill($request->all()); 
         $users->password = Hash::make($request->password);
         $request->merge(['password'=>$users->password]);
-        $users->is_active = $request->is_active; 
-        $users->role = $request->role; 
-        dd($users);
-
         $users->save();
-        dd($request->add());
-        return redirect()->route('users,index');
+        return redirect()->route('users.index');
 
     }
 
@@ -93,9 +93,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $users = User::all();
+        return view('users.edit',[ 'user'=> $user]);
     }
 
     /**
@@ -105,9 +106,25 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,User $user)
     {
-        //
+        $this->validate($request,[
+            'name'=> 'required',
+            'email'=> 'required|email',
+            'adress'=> 'required',
+
+        ],[
+            'name.required'=> '*không được để trống name user *',
+            'adress.required'=> '*không được để trống địa chỉ *',
+            'email.required'=> '*không được để trống  giá email *',
+            'email.email'=> '* email không đúng định dạng *',
+        ]);
+
+           $user->update($request->all()) ;
+        //    dd($user);die;
+            return redirect()->route('users.index')->with('notify', 'Sửa sản phẩm thành công');
+            
+        
     }
 
     /**
