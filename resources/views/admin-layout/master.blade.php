@@ -181,17 +181,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('students') }}" class="nav-link active">
+                <a href="{{ url('comments') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                   danh sach comment
                   </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>thêm comment</p>
                 </a>
               </li>
               

@@ -4,7 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +25,4 @@ Route::resource('products', ProductController::class);
 Route::resource('users', UserController::class);
 Route::get('register', [LoginController::class, 'register'])->name('register');
 Route::post('post-register', [LoginController::class, 'registerStore'])->name('post-register');
+Route::resource('comments', CommentController::class);

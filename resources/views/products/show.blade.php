@@ -11,24 +11,29 @@
       <th scope="col">user_id</th>
       <th scope="col">product_id</th>
       <th scope="col">status</th>
-      <th scope="col">action</th>
     </tr>
   </thead>
   <tbody>
-                @foreach ($comments as $item)
-                <tr>
-                 <td>{{$item->content}}</td>
+             @foreach($comments as $cm)
+             <tr>
+             
+             <td>{{$cm->content}}</td>
+             @if(isset($cm->user->name))
+                    <td>{{$cm->user->name}}</td>
+             @else
+             <td>null</td>
+             @endif
+             
+               <td>{{$product->name}}</td>
+                    
+               <td>@if ($cm->status == 1)
+                            hiện
+                        @else
+                            ẩn
+                        @endif</td> 
                 
-
-                @if(isset($product->category->name))
-                 <td>{{$product->category->name}}</td>
-                 @else
-                <td>null</td>
-                @endif
-                @endforeach
-                    
-                    
                 </tr>
+                @endforeach
         </tbody>
 
 </table>
