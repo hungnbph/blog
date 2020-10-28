@@ -9,6 +9,11 @@ use App\Models\Comment;
 use DB;
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('loginActive');
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        $products = Product::paginate(5);
+         $products = Product::with('category')->orderBy('id', 'DESC')->paginate(5);
         return view('products.list', ['products'=>$products]);
     }
 
@@ -79,8 +84,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $comments = Comment::with(['user', 'product'])->where('product_id', $product->id)->orderBy('id', 'DESC')->get();
-        return view('products.show', compact('product', 'comments')); 
+        $comments = Comment::with(['product:id,name', 'user:id,name'])->paginate(5);
+        dd($comments);
+        return view('products.show',['comments'=>$comments]);
     }
 
     /**
@@ -105,7 +111,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $this->validate($request,[
-            'name'=> 'required',
+            'name'=> 'required|max:10',
             'image_url'=> 'required',
             'description'=> 'required',
             'price'=> 'required|numeric|min:0|not_in:0',
@@ -118,7 +124,9 @@ class ProductController extends Controller
             'price.required'=> '*không được để trống giá *',
             'sale_percent.required'=> '*không được để trống  giá sale *',
             'price.min' => 'giá phải lớn hơn 0',
-            'sale_percent.lt'=> ' giá phải nhỏ hơn giá gốc'
+            'sale_percent.lt'=> ' giá phải nhỏ hơn giá gốc',
+            'name.max'=> '*nho hon 10 *',
+
 
         ]);
         if ($request->hasFile('image_url')) {

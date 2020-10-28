@@ -64,10 +64,7 @@ class LoginController extends Controller
             'confirm_password.required'=> '*không được để trống confirm_password *',
             'email.required'=> '*không được để trống  giá email *',
             'email.email'=> '* email không đúng định dạng *',
-            
-        
-            'sale_percent.lt'=> ' giá phải nhỏ hơn giá gốc'
-
+            'confirm_password.same'=> '*mật khẩu không giống nhau *',
         ]);
     }
 }

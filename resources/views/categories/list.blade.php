@@ -21,7 +21,11 @@
                 <tr>
                      <td> {{ $category->id}} </td>
                     <td>{{ $category->name }}</td>
-                    <td>{{ $category->parent_id }}</td>
+                    @if(isset($category->category->name))
+                    <td>{{$category->category->name}}</td>
+                    @else
+                            <td >danh mục gốc</td>
+                    @endif
                     <td>
                         @if ($category->status == 1)
                             hiện
