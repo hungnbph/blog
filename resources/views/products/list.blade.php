@@ -22,8 +22,12 @@
             @foreach($products as $product)
                 <tr>
                     <td>{{ $product->name }}</td>
-                    <td >{{ $product->category_id }}</td>
-                    <td> <img src="{{url('/'.$product->image_url)}}" alt="" width="100" height="80"> </td>
+                    @if(isset($product->category->name))
+                    <td>{{$product->category->name}}</td>
+                    @else
+                    <td>null</td>
+                    @endif
+                    <td> <img src="{{url('/public/'.$product->image_url)}}" alt="" width="100" height="80"> </td>
                     <td>{{ $product->description }} </td>
                     <td>{{ $product->price}} </td>
                     <td>{{ $product->sale_percent}} </td>

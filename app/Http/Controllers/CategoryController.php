@@ -10,6 +10,7 @@ class CategoryController extends Controller
 
     public function __construct()
     {
+        $this->middleware('loginActive'); 
         $this->middleware('auth');
     }
     /**
@@ -19,8 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        $categories = Category::paginate(5);
+        $categories = Category::with('category')->orderBy('id', 'DESC')->paginate(5);
         return view('categories.list', ['categories'=>$categories]);
     }
 
